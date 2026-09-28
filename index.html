@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anchoria | Contributory Reserve Fund</title>
+<meta name="description" content="Join the Contributory Reserve Fund with Anchoria, a financial services company. SEC-licensed. Takes about 15 minutes.">
+<style>
+:root{
+  --gold:#C2972B;--gold-2:#A47E1E;--gold-soft:#F7EFD6;
+  --black:#141312;--ink:#1C1A17;--paper:#FBFAF6;--surface:#FFFFFF;
+  --line:#E7E4DB;--line-strong:#CFCBBE;--muted:#6B655A;--muted-2:#938C7E;
+  --ok:#2E7D4F;--err:#B23A3A;--err-bg:#FBEDED;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(20,19,18,.04),0 14px 36px rgba(20,19,18,.07);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.5;-webkit-font-smoothing:antialiased;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
+button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px;}
+.shell{display:flex;min-height:100vh;}
+.rail{width:308px;flex-shrink:0;background:var(--black);color:#EDE9DF;padding:34px 26px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.brand{display:flex;align-items:center;gap:13px;margin-bottom:6px;}
+a.brand,a.brand:link,a.brand:visited,a.brand:hover,a.brand:active{color:inherit;text-decoration:none;}
+.emblem{width:42px;height:42px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.brand .name{font-family:var(--serif);font-size:12.5px;line-height:1.35;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase;}
+.brand .sub{font-size:10px;letter-spacing:.18em;color:#C2972B !important;text-transform:uppercase;font-weight:600;}
+.lede{font-size:13px;color:#9A9384;margin:16px 0 24px;line-height:1.6;}
+.tracker{list-style:none;margin:0;padding:0;flex:1;}
+.tracker li{display:flex;align-items:center;gap:11px;padding:9px 8px;margin:0 -8px;border-radius:8px;border-bottom:1px solid #2A2620;cursor:pointer;transition:background .15s;}
+.tracker li:hover{background:#231F1A;}
+.tracker li:hover .t-label{color:#fff;}
+.tracker li:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;}
+.tracker li:last-child{border:0;}
+.dot{width:26px;height:26px;border-radius:50%;background:#2A2620;color:#9A9384;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .25s,color .25s;}
+.tracker li.active .dot{background:var(--gold);color:#fff;}
+.tracker li.done .dot{background:var(--ok);color:#fff;}
+.tracker li.incomplete .dot{background:var(--err);color:#fff;}
+.tracker li.incomplete .t-label{color:#E9A8A0;}
+.t-label{font-size:12.5px;color:#9A9384;transition:color .2s;}
+.tracker li.active .t-label{color:#fff;font-weight:600;}
+.tracker li.done .t-label{color:#7B7568;}
+.acct-switch{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 18px;}
+.acct-switch a{text-align:center;padding:7px 4px;border-radius:6px;font-size:11.5px;font-weight:600;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s,color .18s;}
+.acct-switch a.active{background:var(--gold);color:#1C1A17;}
+.acct-switch a:not(.active){background:#2A2620;color:#9A9384;}
+.acct-switch a:not(.active):hover{background:#353028;color:#CDC6B6;}
+.trust{margin-top:auto;padding-top:20px;border-top:1px solid #2A2620;font-size:11.5px;color:#6B655A;line-height:1.6;}
+.trust strong{color:#CDC6B6;font-weight:600;}
+.main{flex:1;display:flex;flex-direction:column;align-items:center;padding:44px 26px 80px;}
+.topbar{display:none;}
+.card{width:100%;max-width:740px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:0 0 30px;overflow:hidden;}
+.card-head{background:var(--black);color:#fff;padding:15px 44px;}
+.card-head .ey{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.card-head h1{font-family:var(--serif);font-size:24px;margin:5px 0 0;font-weight:600;letter-spacing:.2px;}
+.card-body{padding:26px 44px 0;}
+.step-hint{font-size:13.5px;color:var(--muted);margin:0 0 22px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;}
+.date-row{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:10px;}
+.date-row select{width:100%;}
+.field.has-error .date-row select{border-color:var(--err);background:var(--err-bg);}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field.full{grid-column:1/-1;}
+label.lab{font-size:12.5px;font-weight:600;color:#3B362E;}
+label.lab .req{color:var(--gold);margin-left:2px;}
+.help{font-size:11.5px;color:var(--muted-2);}
+input,select,textarea{font-family:var(--serif);font-size:14px;color:var(--ink);background:#fff;border:1.5px solid var(--line-strong);border-radius:9px;padding:10px 12px;width:100%;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;appearance:none;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23938C7E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+textarea{resize:vertical;min-height:64px;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(194,151,43,.16);}
+input.err-field,select.err-field,textarea.err-field{border-color:var(--err);background:var(--err-bg);}
+.err-msg{font-size:11.5px;color:var(--err);display:none;}
+.err-msg.show{display:block;}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--err);background:var(--err-bg);}
+.choices{display:flex;gap:9px;flex-wrap:wrap;}
+.choice{flex:1;min-width:96px;border:1.5px solid var(--line-strong);border-radius:9px;padding:11px 13px;cursor:pointer;font-size:13.5px;display:flex;align-items:center;gap:9px;transition:border-color .15s,background .15s;background:#fff;}
+.choice:hover{border-color:var(--gold);}
+.choice input[type=checkbox],.choice input[type=radio]{-webkit-appearance:auto;appearance:auto;width:16px;height:16px;margin:0;flex-shrink:0;accent-color:var(--gold-2);cursor:pointer;}
+.choice.sel{border-color:var(--gold);background:var(--gold-soft);}
+.subhead{grid-column:1/-1;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-top:8px;}
+.entity-block{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px;}
+.entity-block-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+.radio-group{display:flex;flex-wrap:wrap;gap:9px;margin-top:2px;}
+.radio-opt{flex:1;min-width:120px;display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13.5px;color:var(--ink);background:#fff;border:1.5px solid var(--line-strong);border-radius:9px;padding:11px 13px;transition:border-color .15s,background .15s;user-select:none;}
+.radio-opt input{-webkit-appearance:auto;appearance:auto;width:16px;height:16px;margin:0;flex-shrink:0;accent-color:var(--gold-2);}
+.radio-opt:has(input:checked){border-color:var(--gold);background:var(--gold-soft);}
+.check-group{display:flex;flex-direction:column;gap:0;margin-top:2px;}
+.check{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);font-size:13px;color:#3B362E;cursor:pointer;line-height:1.4;}
+.check:first-child{border-top:none;}
+.check input[type=checkbox]{-webkit-appearance:auto;appearance:auto;width:16px;height:16px;margin-top:3px;flex-shrink:0;padding:0;border:none;border-radius:0;background:transparent;accent-color:var(--gold-2);cursor:pointer;}
+.add-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:1.5px dashed var(--gold);border-radius:9px;color:var(--gold);font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer;transition:background .15s;font-family:var(--serif);margin-top:4px;}
+.add-btn:hover{background:var(--gold-soft);}
+.add-btn svg{width:15px;height:15px;fill:currentColor;flex-shrink:0;}
+.upload-slot{border:1.5px dashed var(--line-strong);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px;background:#FDFCF8;transition:border-color .15s,background .15s;position:relative;}
+.upload-slot:hover,.upload-slot.drag{border-color:var(--gold);background:var(--gold-soft);}
+.upload-slot.filled{border-style:solid;border-color:var(--ok);background:#F2F8F4;}
+.upload-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-info{flex:1;min-width:0;}
+.upload-icon{font-size:26px;flex-shrink:0;}
+.upload-label{font-size:13px;font-weight:600;color:#3B362E;display:block;}
+.upload-sub{font-size:11.5px;color:var(--muted-2);margin-top:2px;display:block;}
+.upload-name{font-size:11.5px;color:var(--ok);font-weight:600;margin-top:4px;display:none;word-break:break-all;}
+.sig-wrap{border:1.5px solid var(--line-strong);border-radius:10px;overflow:hidden;background:#fff;position:relative;transition:border-color .15s;}
+.sig-wrap.has-drawn{border-color:var(--ok);}
+.sig-wrap.err-field{border-color:var(--err);background:var(--err-bg);}
+.sig-wrap canvas{display:block;touch-action:none;cursor:crosshair;width:100%;height:150px;}
+.sig-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted-2);pointer-events:none;}
+.sigtools{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.sigtools button{background:none;border:none;color:var(--gold-2);font-size:12.5px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:5px;font-family:var(--serif);}
+.sigtools button:hover{background:var(--gold-soft);}
+.sigtools span{font-size:11.5px;color:var(--muted-2);}
+.nav{display:flex;justify-content:space-between;align-items:center;margin:26px 44px 0;padding-top:20px;border-top:1px solid var(--line);}
+.btn-next{background:var(--black);color:#fff;border:1.5px solid transparent;border-radius:9px;padding:11px 24px;font-family:var(--serif);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;}
+.btn-next:hover{background:#000;}
+.btn-next.loading{opacity:.7;cursor:wait;}
+.btn-back{background:#fff;border:1.5px solid var(--line-strong);border-radius:9px;padding:11px 24px;font-family:var(--serif);font-size:14px;font-weight:600;color:var(--black);cursor:pointer;transition:border-color .15s;}
+.btn-back:hover{border-color:var(--gold);}
+.btn-back.hidden{visibility:hidden;}
+.success{text-align:center;padding:48px 32px 32px;}
+.seal{width:68px;height:68px;border-radius:50%;background:var(--gold-soft);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:32px;color:var(--gold-2);}
+.success h2{font-family:var(--serif);font-size:25px;margin:0 0 8px;}
+.success p{color:var(--muted);font-size:14px;max-width:48ch;margin:0 auto 6px;}
+.ref{display:inline-block;margin-top:16px;background:var(--gold-soft);border:1px dashed var(--gold);border-radius:9px;padding:9px 20px;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--gold-2);}
+.err-banner{background:var(--err-bg);border:1px solid var(--err);color:var(--err);border-radius:9px;padding:11px 14px;font-size:13px;margin-bottom:16px;display:none;}
+.err-banner.show{display:block;}
+.hidden{display:none!important;}
+.step{display:none;}
+.step.active{display:block;}
+@media(max-width:880px){
+  .rail{display:none;}
+  .shell{flex-direction:column;}
+  .topbar{display:block;background:var(--black);color:#fff;padding:16px 18px;position:sticky;top:0;z-index:10;}
+  .topbar .brand{display:flex;align-items:center;gap:10px;}
+  .topbar .emblem{width:32px;height:32px;}
+  .topbar .name{font-size:11.5px;font-weight:700;color:#fff;letter-spacing:.04em;text-transform:uppercase;}
+  .topbar .pbar{height:5px;background:#34302A;border-radius:4px;margin-top:12px;overflow:hidden;}
+  .topbar .pfill{height:100%;background:var(--gold);width:0;transition:width .35s;}
+  .topbar .pmeta{display:flex;justify-content:space-between;font-size:10.5px;color:#9A9384;margin-top:6px;}
+  .main{padding:20px 12px 56px;}
+  .card-head{padding:12px 20px;}
+  .card-body{padding:20px 20px 0;}
+  .nav{margin:20px 20px 0;}
+  .grid{grid-template-columns:1fr;}
+  .card-head h1{font-size:20px;}
+  .choices{flex-direction:column;}
+  .choice{min-width:unset;}
+  .radio-group{flex-direction:column;}
+  .radio-opt{min-width:unset;}
+}
+@media(max-width:480px){
+  .upload-slot{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="rail" aria-label="Application progress">
+    <a href="index.html" class="brand" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:13px;">
+      <div class="emblem" style="width:42px;height:42px;border-radius:50%;flex-shrink:0;background:var(--gold);color:#141312;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.5px;">CRF</div>
+      <div>
+        <div class="name">CONTRIBUTORY<br>RESERVE FUND</div>
+      </div>
+    </a>
+    <p class="lede">Open your Contributory Reserve Fund account online. No paperwork — takes about 15 minutes.</p>
+    <ul class="tracker" id="tracker">
+      <li data-step="0"><span class="dot">1</span><span class="t-label">Entity details</span></li>
+      <li data-step="1"><span class="dot">2</span><span class="t-label">Directors</span></li>
+      <li data-step="2"><span class="dot">3</span><span class="t-label">Signatories</span></li>
+      <li data-step="3"><span class="dot">4</span><span class="t-label">Financial info</span></li>
+      <li data-step="4"><span class="dot">5</span><span class="t-label">Documents</span></li>
+      <li data-step="5"><span class="dot">6</span><span class="t-label">Declarations</span></li>
+    </ul>
+    <div class="trust">
+      <strong>Contributory Reserve Fund</strong><br>
+      Registered and regulated by the Securities and Exchange Commission (SEC), Nigeria. Your data is encrypted in transit and processed only to open and manage your account, in accordance with the Nigeria Data Protection Act (NDPA) 2023.
+    </div>
+  </aside>
+
+  <div class="main">
+
+    <div class="topbar">
+      <a href="index.html" class="brand" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:13px;">
+        <div class="emblem" style="width:32px;height:32px;border-radius:50%;flex-shrink:0;background:var(--gold);color:#141312;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.3px;">CRF</div>
+        <div class="name">CONTRIBUTORY RESERVE FUND</div>
+      </a>
+      </a>
+      <div class="pbar"><div class="pfill" id="pfill"></div></div>
+      <div class="pmeta">
+        <span id="pstep">Step 1 of 6</span>
+        <span id="pname">Entity details</span>
+      </div>
+    </div>
+
+    <div style="width:100%;max-width:740px;">
+      <div class="err-banner" id="errBanner" role="alert" aria-live="polite"></div>
+    </div>
+
+    <form class="card" id="mainCard" novalidate>
+      <div class="card-head">
+        <div class="ey" id="eyebrow">Step 1 of 6</div>
+        <h1 id="cardTitle">Entity details</h1>
+      </div>
+      <div class="card-body">
+
+        <!-- STEP 0 -->
+        <div class="step active" id="step-0">
+          <p class="step-hint">Provide basic information about your organisation.</p>
+          <div class="field full" style="margin-bottom:16px;">
+            <label class="lab">Entity Type <span class="req">*</span></label>
+            <div class="radio-group" id="entity-type-group">
+              <label class="radio-opt"><input type="radio" name="entityType" value="Company Ltd/PLC"> Company Ltd / PLC</label>
+              <label class="radio-opt"><input type="radio" name="entityType" value="Trustees/NGO"> Trustees / NGO</label>
+              <label class="radio-opt"><input type="radio" name="entityType" value="Partnership"> Partnership</label>
+            </div>
+            <span class="err-msg" id="err-entityType">Please select an entity type</span>
+          </div>
+          <div class="grid">
+            <div class="field full">
+              <label class="lab" for="companyName">Company / Organisation Name <span class="req">*</span></label>
+              <input type="text" id="companyName" placeholder="As registered with CAC">
+              <span class="err-msg" id="err-companyName">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="rcNumber">RC / Registration Number <span class="req">*</span></label>
+              <input type="text" id="rcNumber" placeholder="e.g. RC1234567">
+              <span class="err-msg" id="err-rcNumber">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="tin">Tax ID (TIN) <span class="req">*</span></label>
+              <input type="text" id="tin" placeholder="e.g. 12345678-0001">
+              <span class="err-msg" id="err-tin">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="incorporationDate-day">Date of Incorporation <span class="req">*</span></label>
+              <div class="date-row">
+                <select id="incorporationDate-day" aria-label="Incorporation day"><option value="">Day</option></select>
+                <select id="incorporationDate-month" aria-label="Incorporation month">
+                  <option value="">Month</option>
+                  <option value="01">January</option><option value="02">February</option>
+                  <option value="03">March</option><option value="04">April</option>
+                  <option value="05">May</option><option value="06">June</option>
+                  <option value="07">July</option><option value="08">August</option>
+                  <option value="09">September</option><option value="10">October</option>
+                  <option value="11">November</option><option value="12">December</option>
+                </select>
+                <select id="incorporationDate-year" aria-label="Incorporation year"><option value="">Year</option></select>
+              </div>
+              <input type="hidden" id="incorporationDate">
+              <span class="err-msg" id="err-incorporationDate">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="natureBusiness">Nature of Business <span class="req">*</span></label>
+              <input type="text" id="natureBusiness" placeholder="e.g. Manufacturing, Trading">
+              <span class="err-msg" id="err-natureBusiness">This field is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="registeredAddress">Registered Address <span class="req">*</span></label>
+              <textarea id="registeredAddress" rows="2" placeholder="Full registered address"></textarea>
+              <span class="err-msg" id="err-registeredAddress">This field is required</span>
+            </div>
+            <div class="field full">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+                <label class="lab" for="operatingAddress" style="margin:0;">Operating Address <span class="req">*</span></label>
+                <label class="check" style="border-top:none;padding:0;margin-left:auto;font-size:12px;gap:7px;">
+                  <input type="checkbox" id="sameAddress"> Same as registered
+                </label>
+              </div>
+              <textarea id="operatingAddress" rows="2" placeholder="Operating address if different"></textarea>
+              <span class="err-msg" id="err-operatingAddress">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="corpEmail">Email Address <span class="req">*</span></label>
+              <input type="email" id="corpEmail" placeholder="company@example.com">
+              <span class="err-msg" id="err-corpEmail">Enter a valid email address</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="corpPhone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="corpPhone" placeholder="0801 234 5678">
+              <span class="err-msg" id="err-corpPhone">Enter a valid Nigerian phone number</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="website">Website <span style="font-weight:400;font-size:11px;color:var(--muted-2);">(optional)</span></label>
+              <input type="url" id="website" placeholder="https://www.example.com">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step" id="step-1">
+          <p class="step-hint">Add up to 3 directors or partners of the entity.</p>
+          <div id="directors-container"></div>
+          <button class="add-btn" id="add-director-btn" type="button">
+            <svg viewBox="0 0 20 20"><path d="M10 4a1 1 0 011 1v4h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H5a1 1 0 010-2h4V5a1 1 0 011-1z"/></svg>
+            Add Director
+          </button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" id="step-2">
+          <p class="step-hint">Add up to 2 authorized signatories for the account.</p>
+          <div id="signatories-container"></div>
+          <button class="add-btn" id="add-signatory-btn" type="button">
+            <svg viewBox="0 0 20 20"><path d="M10 4a1 1 0 011 1v4h4a1 1 0 010 2h-4v4a1 1 0 01-2 0v-4H5a1 1 0 010-2h4V5a1 1 0 011-1z"/></svg>
+            Add Signatory
+          </button>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" id="step-3">
+          <p class="step-hint">Provide banking details and investment preferences.</p>
+          <div class="grid">
+            <div class="subhead">Bank Details</div>
+            <div class="field">
+              <label class="lab" for="bankName">Bank Name <span class="req">*</span></label>
+              <input type="text" id="bankName" placeholder="e.g. First Bank of Nigeria">
+              <span class="err-msg" id="err-bankName">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="bankBranch">Bank Branch <span class="req">*</span></label>
+              <input type="text" id="bankBranch" placeholder="e.g. Victoria Island Branch">
+              <span class="err-msg" id="err-bankBranch">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="accountNumber">Account Number <span class="req">*</span></label>
+              <input type="text" id="accountNumber" placeholder="10-digit account number" maxlength="10">
+              <span class="err-msg" id="err-accountNumber">Enter a valid 10-digit account number</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="accountName">Account Name <span class="req">*</span></label>
+              <input type="text" id="accountName" placeholder="Name on bank account">
+              <span class="err-msg" id="err-accountName">This field is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="dcsNumber">DCS / Settlement Number (CSCS/CHN) <span style="font-weight:400;font-size:11px;color:var(--muted-2);">(optional)</span></label>
+              <input type="text" id="dcsNumber" placeholder="CSCS or CHN number">
+            </div>
+            <div class="subhead">Source of Funds</div>
+            <div class="field full">
+              <label class="lab">Source of Funds <span class="req">*</span></label>
+              <div class="choices" id="sof-group">
+                <label class="choice"><input type="checkbox" name="sourceOfFunds" value="Business income"> Business income</label>
+                <label class="choice"><input type="checkbox" name="sourceOfFunds" value="Investments"> Investments</label>
+                <label class="choice"><input type="checkbox" name="sourceOfFunds" value="Grants/Donations"> Grants / Donations</label>
+                <label class="choice"><input type="checkbox" name="sourceOfFunds" value="Others"> Others</label>
+              </div>
+              <span class="err-msg" id="err-sourceOfFunds">Please select at least one source of funds</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="sourceDetails">Source Details <span class="req">*</span></label>
+              <input type="text" id="sourceDetails" placeholder="Briefly describe the source of funds">
+              <span class="err-msg" id="err-sourceDetails">This field is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="annualTurnover">Annual Turnover <span class="req">*</span></label>
+              <select id="annualTurnover">
+                <option value="">— Select range —</option>
+                <option value="Below ₦5m">Below ₦5m</option>
+                <option value="₦5m–₦50m">₦5m – ₦50m</option>
+                <option value="₦50m–₦500m">₦50m – ₦500m</option>
+                <option value="Above ₦500m">Above ₦500m</option>
+              </select>
+              <span class="err-msg" id="err-annualTurnover">Please select annual turnover</span>
+            </div>
+            <div class="subhead">Investment Preferences</div>
+            <div class="field full">
+              <label class="lab">Investment Options <span class="req">*</span></label>
+              <div class="choices" id="inv-group">
+                <label class="choice"><input type="checkbox" name="investmentOptions" value="Equities"> Equities</label>
+                <label class="choice"><input type="checkbox" name="investmentOptions" value="Fixed Income"> Fixed Income</label>
+                <label class="choice"><input type="checkbox" name="investmentOptions" value="Money Market"> Money Market</label>
+                <label class="choice"><input type="checkbox" name="investmentOptions" value="Mutual Funds"> Mutual Funds</label>
+              </div>
+              <span class="err-msg" id="err-investmentOptions">Please select at least one investment option</span>
+            </div>
+            <div class="field full">
+              <label class="lab" for="referralSource">How did you hear about us? <span style="font-weight:400;font-size:11px;color:var(--muted-2);">(optional)</span></label>
+              <select id="referralSource">
+                <option value="">Select</option>
+                <option>Referral</option>
+                <option>Staff</option>
+                <option>Internet / Social Media</option>
+                <option>Email</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label class="lab" for="relationshipManager">Relationship Manager <span style="font-weight:400;font-size:11px;color:var(--muted-2);">(optional)</span></label>
+              <input type="text" id="relationshipManager" placeholder="Name of your Anchoria relationship manager, if any">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" id="step-4">
+          <p class="step-hint">Upload the required documents. Files must be PDF, JPG, or PNG (max 4 MB each).</p>
+          <div class="grid">
+            <div class="field full">
+              <label class="lab">CAC Certificate of Incorporation <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-cac">
+                <input type="file" id="file-cac" accept=".pdf,.jpg,.jpeg,.png" data-key="cac">
+                <span class="upload-icon">📄</span>
+                <div class="upload-info">
+                  <span class="upload-label">CAC Certificate of Incorporation</span>
+                  <span class="upload-sub">Click or drag &amp; drop · PDF / JPG / PNG</span>
+                  <span class="upload-name" id="name-cac"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-cac">This document is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab">MEMART (Memorandum &amp; Articles of Association) <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-memart">
+                <input type="file" id="file-memart" accept=".pdf,.jpg,.jpeg,.png" data-key="memart">
+                <span class="upload-icon">📋</span>
+                <div class="upload-info">
+                  <span class="upload-label">MEMART</span>
+                  <span class="upload-sub">Click or drag &amp; drop · PDF / JPG / PNG</span>
+                  <span class="upload-name" id="name-memart"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-memart">This document is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab">Board Resolution / Mandate Letter <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-resolution">
+                <input type="file" id="file-resolution" accept=".pdf,.jpg,.jpeg,.png" data-key="resolution">
+                <span class="upload-icon">🏛️</span>
+                <div class="upload-info">
+                  <span class="upload-label">Board Resolution / Mandate Letter</span>
+                  <span class="upload-sub">Click or drag &amp; drop · PDF / JPG / PNG</span>
+                  <span class="upload-name" id="name-resolution"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-resolution">This document is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab">Proof of Company Address <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-address">
+                <input type="file" id="file-address" accept=".pdf,.jpg,.jpeg,.png" data-key="address">
+                <span class="upload-icon">🏢</span>
+                <div class="upload-info">
+                  <span class="upload-label">Utility Bill / Tenancy Agreement</span>
+                  <span class="upload-sub">Not older than 3 months · PDF / JPG / PNG</span>
+                  <span class="upload-name" id="name-address"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-address">This document is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab">Valid ID – Director 1 <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-id1">
+                <input type="file" id="file-id1" accept=".pdf,.jpg,.jpeg,.png" data-key="id1">
+                <span class="upload-icon">🪪</span>
+                <div class="upload-info">
+                  <span class="upload-label">Director 1 – Government Issued ID</span>
+                  <span class="upload-sub">NIN slip, International Passport, Driver's Licence</span>
+                  <span class="upload-name" id="name-id1"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-id1">This document is required</span>
+            </div>
+            <div class="field full">
+              <label class="lab">Valid ID – Director 2 <span style="font-weight:400;font-size:11px;color:var(--muted-2);">(optional)</span></label>
+              <div class="upload-slot" id="slot-id2">
+                <input type="file" id="file-id2" accept=".pdf,.jpg,.jpeg,.png" data-key="id2">
+                <span class="upload-icon">🪪</span>
+                <div class="upload-info">
+                  <span class="upload-label">Director 2 – Government Issued ID</span>
+                  <span class="upload-sub">NIN slip, International Passport, Driver's Licence</span>
+                  <span class="upload-name" id="name-id2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step" id="step-5">
+          <p class="step-hint">Please read and accept all declarations before signing.</p>
+          <div class="field full">
+            <label class="lab">Declarations <span class="req">*</span> — all must be accepted</label>
+            <div class="check-group" id="decl-group" style="margin-top:8px;">
+              <label class="check">
+                <input type="checkbox" id="decl-1">
+                <span>I/We confirm that all information provided in this form is true, accurate and complete to the best of my/our knowledge.</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="decl-2">
+                <span>I/We consent to the Contributory Reserve Fund (administered by Anchoria) conducting due diligence and verifying the information provided, including through third-party data sources.</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="decl-3">
+                <span>I/We confirm that the entity is not engaged in, nor associated with, money laundering, terrorism financing, or any other illicit financial activities.</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="decl-4">
+                <span>I/We agree to promptly notify the Contributory Reserve Fund of any material changes to the information provided in this form.</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="decl-5">
+                <span>I/We have read and accept the Contributory Reserve Fund's Terms and Conditions, Privacy Policy, and account operating guidelines.</span>
+              </label>
+            </div>
+            <span class="err-msg" id="err-declarations">All five declarations must be accepted</span>
+          </div>
+          <div class="grid" style="margin-top:20px;">
+            <div class="field">
+              <label class="lab" for="signatoryName">Signatory Name <span class="req">*</span></label>
+              <input type="text" id="signatoryName" placeholder="Full name of signatory">
+              <span class="err-msg" id="err-signatoryName">This field is required</span>
+            </div>
+            <div class="field">
+              <label class="lab" for="sigDate">Date <span class="req">*</span></label>
+              <input type="text" id="sigDate" readonly aria-readonly="true">
+              <span class="err-msg" id="err-sigDate">This field is required</span>
+            </div>
+            <div class="field full" style="margin-top:4px;">
+              <label class="lab">Upload Signature <span class="req">*</span></label>
+              <div class="upload-slot" id="slot-signature">
+                <input type="file" id="file-signature" accept=".jpg,.jpeg,.png" data-key="signature">
+                <span class="upload-icon">✍️</span>
+                <div class="upload-info">
+                  <span class="upload-label">Authorised signatory's signature</span>
+                  <span class="upload-sub">A clear photo or scan of the signature on white paper · JPG / PNG</span>
+                  <span class="upload-name" id="name-signature"></span>
+                </div>
+              </div>
+              <span class="err-msg" id="err-signature">Signature image is required</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.card-body -->
+
+      <div class="nav">
+        <button type="button" class="btn-back hidden" id="backBtn">Back</button>
+        <button type="button" class="btn-next" id="nextBtn">
+          <span class="btn-label">Continue</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="card success hidden" id="successCard" style="max-width:740px;width:100%;">
+      <div class="seal">✓</div>
+      <h2>Application Submitted!</h2>
+      <p>Thank you for applying to join the Contributory Reserve Fund. Our team will review your application and contact you within 3–5 business days.</p>
+      <p style="margin-top:6px;">Your reference number:</p>
+      <div class="ref" id="comp-ref"></div>
+      <p style="margin-top:16px;font-size:12px;color:var(--muted-2);">Please keep this reference for your records. You may be contacted at the email address provided for additional information.</p>
+    </div>
+
+  </div><!-- /.main -->
+</div><!-- /.shell -->
+
+<script>
+(function(){
+"use strict";
+
+/* Lead source tracking — capture ?src=CODE from the URL (falls back to
+   sessionStorage so it survives switching account-type tabs, and to
+   "Direct" if nothing was ever passed in). */
+var leadSource = (function () {
+  var params = new URLSearchParams(window.location.search);
+  var src = params.get("src") || params.get("ref") || params.get("source");
+  if (src) {
+    try { sessionStorage.setItem("anchoria_src", src); } catch (e) {}
+    return src;
+  }
+  try {
+    var stored = sessionStorage.getItem("anchoria_src");
+    if (stored) return stored;
+  } catch (e) {}
+  return "Direct";
+})();
+if (window.location.search) {
+  document.querySelectorAll(".acct-switch a").forEach(function (a) {
+    var sep = a.getAttribute("href").indexOf("?") > -1 ? "&" : "?";
+    a.setAttribute("href", a.getAttribute("href") + sep + window.location.search.replace(/^\?/, ""));
+  });
+}
+
+var ENDPOINT_URL  = "/.netlify/functions/submit-crf";
+var SHARED_SECRET = "anch0r14-s3cur3-secret-2026";
+
+var currentStep = 0;
+var totalSteps  = 6;
+var STEP_LABELS = ["Entity details","Directors","Signatories","Financial info","Documents","Declarations"];
+var STEP_TITLES = ["Entity details","Directors / Partners","Authorised Signatories","Financial Information","Supporting Documents","Declarations & Signature"];
+
+var directors   = [buildDirectorState(1)];
+var signatories = [buildSignatoryState(1)];
+
+function buildDirectorState(n){ return {n:n,fullName:"",bvn:"",nin:"",phone:"",email:"",address:""}; }
+function buildSignatoryState(n){ return {n:n,fullName:"",title:"",phone:"",email:"",mandate:"Sole signatory"}; }
+
+function updateNav(){
+  document.querySelectorAll("#tracker li").forEach(function(li){
+    var s=parseInt(li.getAttribute("data-step"),10);
+    li.classList.remove("active","done");
+    if(s===currentStep) li.classList.add("active");
+    else if(s<currentStep) li.classList.add("done");
+    var dot=li.querySelector(".dot");
+    dot.textContent = s<currentStep ? "✓" : (s+1);
+  });
+  document.getElementById("eyebrow").textContent  = "Step "+(currentStep+1)+" of "+totalSteps;
+  document.getElementById("cardTitle").textContent = STEP_TITLES[currentStep];
+  document.getElementById("pfill").style.width = (((currentStep+1)/totalSteps)*100)+"%";
+  document.getElementById("pstep").textContent = "Step "+(currentStep+1)+" of "+totalSteps;
+  document.getElementById("pname").textContent = STEP_LABELS[currentStep];
+  var back=document.getElementById("backBtn");
+  currentStep===0 ? back.classList.add("hidden") : back.classList.remove("hidden");
+  document.querySelector("#nextBtn .btn-label").textContent = currentStep===totalSteps-1 ? "Submit application" : "Continue";
+}
+
+function renderDirectors(){
+  var c=document.getElementById("directors-container");
+  c.innerHTML="";
+  directors.forEach(function(d){
+    var n=d.n;
+    var b=document.createElement("div");
+    b.className="entity-block";b.id="director-block-"+n;
+    b.innerHTML='<div class="entity-block-title">Director / Partner '+n+'</div>'+
+      '<div class="grid">'+
+      '<div class="field full"><label class="lab">Full Name <span class="req">*</span></label>'+
+        '<input type="text" id="dir'+n+'-fullName" placeholder="Full legal name" value="'+esc(d.fullName)+'">'+
+        '<span class="err-msg" id="err-dir'+n+'-fullName">This field is required</span></div>'+
+      '<div class="field"><label class="lab">BVN <span class="req">*</span></label>'+
+        '<input type="text" id="dir'+n+'-bvn" placeholder="11-digit BVN" maxlength="11" value="'+esc(d.bvn)+'">'+
+        '<span class="err-msg" id="err-dir'+n+'-bvn">BVN must be exactly 11 digits</span></div>'+
+      '<div class="field"><label class="lab">NIN <span class="req">*</span></label>'+
+        '<input type="text" id="dir'+n+'-nin" placeholder="11-digit NIN" maxlength="11" value="'+esc(d.nin)+'">'+
+        '<span class="err-msg" id="err-dir'+n+'-nin">NIN must be exactly 11 digits</span></div>'+
+      '<div class="field"><label class="lab">Phone <span class="req">*</span></label>'+
+        '<input type="tel" id="dir'+n+'-phone" placeholder="0801 234 5678" value="'+esc(d.phone)+'">'+
+        '<span class="err-msg" id="err-dir'+n+'-phone">Enter a valid Nigerian phone number</span></div>'+
+      '<div class="field"><label class="lab">Email <span class="req">*</span></label>'+
+        '<input type="email" id="dir'+n+'-email" placeholder="director@example.com" value="'+esc(d.email)+'">'+
+        '<span class="err-msg" id="err-dir'+n+'-email">Enter a valid email address</span></div>'+
+      '<div class="field full"><label class="lab">Residential Address <span class="req">*</span></label>'+
+        '<textarea id="dir'+n+'-address" rows="2" placeholder="Full residential address">'+esc(d.address)+'</textarea>'+
+        '<span class="err-msg" id="err-dir'+n+'-address">This field is required</span></div>'+
+      '</div>';
+    c.appendChild(b);
+    ["fullName","bvn","nin","phone","email","address"].forEach(function(k){ bindBlur("dir"+n+"-"+k); });
+  });
+  document.getElementById("add-director-btn").style.display = directors.length>=3?"none":"";
+}
+
+function renderSignatories(){
+  var c=document.getElementById("signatories-container");
+  c.innerHTML="";
+  signatories.forEach(function(s){
+    var n=s.n;
+    var b=document.createElement("div");
+    b.className="entity-block";b.id="signatory-block-"+n;
+    b.innerHTML='<div class="entity-block-title">Signatory '+n+'</div>'+
+      '<div class="grid">'+
+      '<div class="field full"><label class="lab">Full Name <span class="req">*</span></label>'+
+        '<input type="text" id="sig'+n+'-fullName" placeholder="Full legal name" value="'+esc(s.fullName)+'">'+
+        '<span class="err-msg" id="err-sig'+n+'-fullName">This field is required</span></div>'+
+      '<div class="field"><label class="lab">Title <span class="req">*</span></label>'+
+        '<input type="text" id="sig'+n+'-title" placeholder="e.g. CEO, CFO, Director" value="'+esc(s.title)+'">'+
+        '<span class="err-msg" id="err-sig'+n+'-title">This field is required</span></div>'+
+      '<div class="field"><label class="lab">Phone <span class="req">*</span></label>'+
+        '<input type="tel" id="sig'+n+'-phone" placeholder="0801 234 5678" value="'+esc(s.phone)+'">'+
+        '<span class="err-msg" id="err-sig'+n+'-phone">Enter a valid Nigerian phone number</span></div>'+
+      '<div class="field full"><label class="lab">Email <span class="req">*</span></label>'+
+        '<input type="email" id="sig'+n+'-email" placeholder="signatory@example.com" value="'+esc(s.email)+'">'+
+        '<span class="err-msg" id="err-sig'+n+'-email">Enter a valid email address</span></div>'+
+      '<div class="field full"><label class="lab">Mandate Type <span class="req">*</span></label>'+
+        '<div class="choices">'+
+          '<label class="choice'+(s.mandate==="Sole signatory"?" sel":"")+'">'+
+            '<input type="radio" name="mandate'+n+'" value="Sole signatory"'+(s.mandate==="Sole signatory"?" checked":"")+'>Sole signatory</label>'+
+          '<label class="choice'+(s.mandate==="Joint signatory"?" sel":"")+'">'+
+            '<input type="radio" name="mandate'+n+'" value="Joint signatory"'+(s.mandate==="Joint signatory"?" checked":"")+'>Joint signatory</label>'+
+        '</div>'+
+        '<span class="err-msg" id="err-sig'+n+'-mandate">Please select mandate type</span></div>'+
+      '</div>';
+    c.appendChild(b);
+    b.querySelectorAll('input[name="mandate'+n+'"]').forEach(function(r){
+      r.addEventListener("change",function(){
+        b.querySelectorAll(".choice").forEach(function(ch){ch.classList.remove("sel");});
+        r.closest(".choice").classList.add("sel");
+      });
+    });
+    ["fullName","title","phone","email"].forEach(function(k){ bindBlur("sig"+n+"-"+k); });
+  });
+  document.getElementById("add-signatory-btn").style.display = signatories.length>=2?"none":"";
+}
+
+document.getElementById("add-director-btn").addEventListener("click",function(){
+  if(directors.length<3){ directors.push(buildDirectorState(directors.length+1)); renderDirectors(); }
+});
+document.getElementById("add-signatory-btn").addEventListener("click",function(){
+  if(signatories.length<2){ signatories.push(buildSignatoryState(signatories.length+1)); renderSignatories(); }
+});
+
+document.querySelectorAll(".choices").forEach(function(g){
+  g.querySelectorAll(".choice").forEach(function(c){
+    c.addEventListener("change",function(){
+      var inp=c.querySelector("input");
+      if(inp.type==="checkbox") c.classList.toggle("sel",inp.checked);
+      else{ g.querySelectorAll(".choice").forEach(function(x){x.classList.remove("sel");}); c.classList.add("sel"); }
+    });
+  });
+});
+
+document.getElementById("sameAddress").addEventListener("change",function(){
+  var op=document.getElementById("operatingAddress");
+  if(this.checked){ op.value=document.getElementById("registeredAddress").value; op.disabled=true; }
+  else{ op.disabled=false; op.value=""; }
+});
+document.getElementById("registeredAddress").addEventListener("input",function(){
+  if(document.getElementById("sameAddress").checked) document.getElementById("operatingAddress").value=this.value;
+});
+
+var FILE_KEYS=["cac","memart","resolution","address","id1","id2","signature"];
+var fileStore={};
+FILE_KEYS.forEach(function(key){
+  var slot=document.getElementById("slot-"+key);
+  var input=document.getElementById("file-"+key);
+  if(!slot||!input) return;
+  input.addEventListener("change",function(){ handleFile(key,this.files[0]); });
+  slot.addEventListener("dragover",function(e){ e.preventDefault(); slot.classList.add("drag"); });
+  slot.addEventListener("dragleave",function(){ slot.classList.remove("drag"); });
+  slot.addEventListener("drop",function(e){ e.preventDefault(); slot.classList.remove("drag"); var f=e.dataTransfer.files[0]; if(f) handleFile(key,f); });
+});
+function handleFile(key,file){
+  if(!file) return;
+  var n=document.getElementById("name-"+key);
+  if(file.size > 4*1024*1024){
+    delete fileStore[key];
+    var s0=document.getElementById("slot-"+key); if(s0) s0.classList.remove("filled");
+    if(n){ n.textContent="File too large — maximum 4 MB"; n.style.display="block"; n.style.color="#B23A3A"; }
+    return;
+  }
+  fileStore[key]=file;
+  if(n){ n.textContent="✓ "+file.name; n.style.display="block"; n.style.color=""; }
+  var s=document.getElementById("slot-"+key);
+  if(s) s.classList.add("filled");
+  clearErr("err-"+key);
+}
+
+// Signature is now provided as an uploaded image (data-key="signature"),
+// handled by the FILE_KEYS wiring above.
+document.getElementById("sigDate").value=new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+
+// Populate the Date of Incorporation Day/Month/Year picker and sync hidden input (YYYY-MM-DD)
+(function(){
+  var dayEl=document.getElementById("incorporationDate-day");
+  var monthEl=document.getElementById("incorporationDate-month");
+  var yearEl=document.getElementById("incorporationDate-year");
+  var hidden=document.getElementById("incorporationDate");
+  if(!dayEl||!monthEl||!yearEl||!hidden) return;
+  for(var d=1;d<=31;d++){var o=document.createElement("option");o.value=String(d).padStart(2,"0");o.textContent=d;dayEl.appendChild(o);}
+  var cur=new Date().getFullYear();
+  for(var y=cur;y>=1950;y--){var o2=document.createElement("option");o2.value=y;o2.textContent=y;yearEl.appendChild(o2);}
+  function sync(){var dd=dayEl.value,mm=monthEl.value,yy=yearEl.value;hidden.value=(dd&&mm&&yy)?(yy+"-"+mm+"-"+dd):"";}
+  dayEl.addEventListener("change",sync);
+  monthEl.addEventListener("change",sync);
+  yearEl.addEventListener("change",sync);
+})();
+
+function esc(v){ return (v||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;"); }
+function val(id){ var el=document.getElementById(id); return el?el.value.trim():""; }
+function setErr(id,show){ var el=document.getElementById(id); if(!el) return; if(show) el.classList.add("show"); else el.classList.remove("show"); }
+function clearErr(id){ setErr(id,false); }
+function setFieldErr(id,show){ var el=document.getElementById(id); if(!el) return; if(show) el.classList.add("err-field"); else el.classList.remove("err-field"); }
+function markField(fid,eid,ok){ setFieldErr(fid,!ok); setErr(eid,!ok); return ok; }
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function isNigerianPhone(v){ var d=v.replace(/[\s\-().+]/g,""); if(v.startsWith("+234")) return /^234\d{10}$/.test(d); return /^0\d{10}$/.test(d); }
+function bindBlur(id){ var el=document.getElementById(id); if(el) el.addEventListener("blur",function(){ validateFieldById(id); }); }
+function validateFieldById(id){
+  var v=document.getElementById(id)?document.getElementById(id).value.trim():"";
+  if(id.indexOf("bvn")!==-1) return markField(id,"err-"+id,/^\d{11}$/.test(v));
+  if(id.indexOf("nin")!==-1) return markField(id,"err-"+id,/^\d{11}$/.test(v));
+  if(id.indexOf("phone")!==-1||id.indexOf("Phone")!==-1) return markField(id,"err-"+id,isNigerianPhone(v));
+  if(id.indexOf("email")!==-1||id.indexOf("Email")!==-1) return markField(id,"err-"+id,isEmail(v));
+  return markField(id,"err-"+id,v.length>0);
+}
+
+function validateStep0(){
+  var ok=true;
+  var et=document.querySelector('input[name="entityType"]:checked');
+  if(!et){setErr("err-entityType",true);ok=false;}else{setErr("err-entityType",false);}
+  [{id:"companyName",err:"err-companyName",fn:function(v){return v.length>0;}},
+   {id:"rcNumber",err:"err-rcNumber",fn:function(v){return v.length>0;}},
+   {id:"tin",err:"err-tin",fn:function(v){return v.length>0;}},
+   {id:"incorporationDate",err:"err-incorporationDate",fn:function(v){return v.length>0;}},
+   {id:"natureBusiness",err:"err-natureBusiness",fn:function(v){return v.length>0;}},
+   {id:"registeredAddress",err:"err-registeredAddress",fn:function(v){return v.length>0;}},
+   {id:"operatingAddress",err:"err-operatingAddress",fn:function(v){return v.length>0;}},
+   {id:"corpEmail",err:"err-corpEmail",fn:function(v){return isEmail(v);}},
+   {id:"corpPhone",err:"err-corpPhone",fn:function(v){return isNigerianPhone(v);}}
+  ].forEach(function(f){ if(!markField(f.id,f.err,f.fn(val(f.id)))) ok=false; });
+  return ok;
+}
+function validateStep1(){
+  var ok=true;
+  directors.forEach(function(d){
+    var n=d.n;
+    [{id:"dir"+n+"-fullName",fn:function(v){return v.length>0;}},
+     {id:"dir"+n+"-bvn",fn:function(v){return /^\d{11}$/.test(v);}},
+     {id:"dir"+n+"-nin",fn:function(v){return /^\d{11}$/.test(v);}},
+     {id:"dir"+n+"-phone",fn:function(v){return isNigerianPhone(v);}},
+     {id:"dir"+n+"-email",fn:function(v){return isEmail(v);}},
+     {id:"dir"+n+"-address",fn:function(v){return v.length>0;}}
+    ].forEach(function(c){ if(!markField(c.id,"err-"+c.id,c.fn(val(c.id)))) ok=false; });
+  });
+  return ok;
+}
+function validateStep2(){
+  var ok=true;
+  signatories.forEach(function(s){
+    var n=s.n;
+    [{id:"sig"+n+"-fullName",fn:function(v){return v.length>0;}},
+     {id:"sig"+n+"-title",fn:function(v){return v.length>0;}},
+     {id:"sig"+n+"-phone",fn:function(v){return isNigerianPhone(v);}},
+     {id:"sig"+n+"-email",fn:function(v){return isEmail(v);}}
+    ].forEach(function(c){ if(!markField(c.id,"err-"+c.id,c.fn(val(c.id)))) ok=false; });
+    var m=document.querySelector('input[name="mandate'+n+'"]:checked');
+    if(!m){setErr("err-sig"+n+"-mandate",true);ok=false;}else{setErr("err-sig"+n+"-mandate",false);}
+  });
+  return ok;
+}
+function validateStep3(){
+  var ok=true;
+  [{id:"bankName",err:"err-bankName",fn:function(v){return v.length>0;}},
+   {id:"bankBranch",err:"err-bankBranch",fn:function(v){return v.length>0;}},
+   {id:"accountNumber",err:"err-accountNumber",fn:function(v){return /^\d{10}$/.test(v);}},
+   {id:"accountName",err:"err-accountName",fn:function(v){return v.length>0;}},
+   {id:"sourceDetails",err:"err-sourceDetails",fn:function(v){return v.length>0;}}
+  ].forEach(function(f){ if(!markField(f.id,f.err,f.fn(val(f.id)))) ok=false; });
+  var sof=document.querySelectorAll('input[name="sourceOfFunds"]:checked');
+  if(sof.length===0){setErr("err-sourceOfFunds",true);ok=false;}else{setErr("err-sourceOfFunds",false);}
+  var inv=document.querySelectorAll('input[name="investmentOptions"]:checked');
+  if(inv.length===0){setErr("err-investmentOptions",true);ok=false;}else{setErr("err-investmentOptions",false);}
+  if(!markField("annualTurnover","err-annualTurnover",val("annualTurnover").length>0)) ok=false;
+  return ok;
+}
+function validateStep4(){
+  var ok=true;
+  ["cac","memart","resolution","address","id1"].forEach(function(key){
+    if(!fileStore[key]){setErr("err-"+key,true);ok=false;}else{setErr("err-"+key,false);}
+  });
+  return ok;
+}
+function validateStep5(){
+  var ok=true,allChecked=true;
+  for(var i=1;i<=5;i++){ if(!document.getElementById("decl-"+i).checked){allChecked=false;break;} }
+  if(!allChecked){setErr("err-declarations",true);ok=false;}else{setErr("err-declarations",false);}
+  if(!markField("signatoryName","err-signatoryName",val("signatoryName").length>0)) ok=false;
+  if(!markField("sigDate","err-sigDate",val("sigDate").length>0)) ok=false;
+  if(!fileStore.signature){ setErr("err-signature",true); ok=false; } else { setErr("err-signature",false); }
+  return ok;
+}
+
+var stepValidators=[validateStep0,validateStep1,validateStep2,validateStep3,validateStep4,validateStep5];
+
+// Read-only: is a step's required content complete? Reads saved data (no DOM mutation).
+function isStepComplete(n){
+  if(n===0){
+    if(!document.querySelector('input[name="entityType"]:checked')) return false;
+    if(!val("companyName").length) return false;
+    if(!val("rcNumber").length) return false;
+    if(!val("tin").length) return false;
+    if(!val("incorporationDate").length) return false;
+    if(!val("natureBusiness").length) return false;
+    if(!val("registeredAddress").length) return false;
+    if(!val("operatingAddress").length) return false;
+    if(!isEmail(val("corpEmail"))) return false;
+    if(!isNigerianPhone(val("corpPhone"))) return false;
+    return true;
+  }
+  if(n===1){
+    return directors.every(function(d){
+      return (d.fullName||"").length>0 && /^\d{11}$/.test(d.bvn||"") && /^\d{11}$/.test(d.nin||"")
+        && isNigerianPhone(d.phone||"") && isEmail(d.email||"") && (d.address||"").length>0;
+    });
+  }
+  if(n===2){
+    return signatories.every(function(s){
+      return (s.fullName||"").length>0 && (s.title||"").length>0
+        && isNigerianPhone(s.phone||"") && isEmail(s.email||"") && !!(s.mandate);
+    });
+  }
+  if(n===3){
+    if(!val("bankName").length) return false;
+    if(!val("bankBranch").length) return false;
+    if(!/^\d{10}$/.test(val("accountNumber"))) return false;
+    if(!val("accountName").length) return false;
+    if(!val("sourceDetails").length) return false;
+    if(document.querySelectorAll('input[name="sourceOfFunds"]:checked').length===0) return false;
+    if(document.querySelectorAll('input[name="investmentOptions"]:checked').length===0) return false;
+    if(!val("annualTurnover").length) return false;
+    return true;
+  }
+  if(n===4){
+    return ["cac","memart","resolution","address","id1"].every(function(k){ return !!fileStore[k]; });
+  }
+  if(n===5){
+    for(var i=1;i<=5;i++){ if(!document.getElementById("decl-"+i).checked) return false; }
+    if(!val("signatoryName").length) return false;
+    if(!val("sigDate").length) return false;
+    if(!fileStore.signature) return false;
+    return true;
+  }
+  return true;
+}
+
+// Flag earlier reached-but-incomplete steps with a red dot in the sidebar
+var maxReached=0;
+function refreshStepStatus(active){
+  document.querySelectorAll("#tracker li").forEach(function(li){
+    var n=parseInt(li.getAttribute("data-step"),10);
+    var dot=li.querySelector(".dot");
+    var flag = n<maxReached && n!==active && !isStepComplete(n);
+    li.classList.toggle("incomplete", flag);
+    dot.textContent = flag ? (n+1) : (n<currentStep ? "✓" : (n+1));
+  });
+}
+
+function showStep(n){
+  saveDirectorValues(); saveSignatoryValues();
+  document.getElementById("step-"+currentStep).classList.remove("active");
+  currentStep=n;
+  document.getElementById("step-"+currentStep).classList.add("active");
+  updateNav(); hideErrBanner();
+  window.scrollTo({top:0,behavior:"smooth"});
+  maxReached=Math.max(maxReached,n);
+  refreshStepStatus(n);
+}
+
+document.getElementById("mainCard").addEventListener("input", function(){ refreshStepStatus(currentStep); });
+document.getElementById("mainCard").addEventListener("change", function(){ refreshStepStatus(currentStep); });
+
+// Sidebar step navigation — click any step to jump straight to it
+document.querySelectorAll("#tracker li").forEach(function(li){
+  li.setAttribute("role","button");
+  li.setAttribute("tabindex","0");
+  function jump(){
+    var n=parseInt(li.getAttribute("data-step"),10);
+    if(isNaN(n)||n===currentStep) return;
+    showStep(n);
+  }
+  li.addEventListener("click",jump);
+  li.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();jump();} });
+});
+function saveDirectorValues(){
+  directors.forEach(function(d){ var n=d.n; ["fullName","bvn","nin","phone","email","address"].forEach(function(k){ var el=document.getElementById("dir"+n+"-"+k); if(el) d[k]=el.value; }); });
+}
+function saveSignatoryValues(){
+  signatories.forEach(function(s){ var n=s.n; ["fullName","title","phone","email"].forEach(function(k){ var el=document.getElementById("sig"+n+"-"+k); if(el) s[k]=el.value; }); var m=document.querySelector('input[name="mandate'+n+'"]:checked'); if(m) s.mandate=m.value; });
+}
+
+document.getElementById("backBtn").addEventListener("click",function(){ if(currentStep>0) showStep(currentStep-1); });
+document.getElementById("nextBtn").addEventListener("click",function(){
+  if(currentStep<totalSteps-1){
+    if(!stepValidators[currentStep]()){ showErrBanner("Please correct the errors above before continuing."); return; }
+    hideErrBanner(); showStep(currentStep+1);
+  } else {
+    if(!stepValidators[5]()){ showErrBanner("Please correct the errors above before submitting."); return; }
+    hideErrBanner(); submitForm();
+  }
+});
+
+function showErrBanner(msg){ var b=document.getElementById("errBanner"); b.textContent=msg; b.classList.add("show"); b.scrollIntoView({behavior:"smooth",block:"nearest"}); }
+function hideErrBanner(){ document.getElementById("errBanner").classList.remove("show"); }
+
+function collectPayload(){
+  saveDirectorValues(); saveSignatoryValues();
+  var et=document.querySelector('input[name="entityType"]:checked');
+  var sof=[]; document.querySelectorAll('input[name="sourceOfFunds"]:checked').forEach(function(c){sof.push(c.value);});
+  var inv=[]; document.querySelectorAll('input[name="investmentOptions"]:checked').forEach(function(c){inv.push(c.value);});
+  return {
+    entityDetails:{entityType:et?et.value:"",companyName:val("companyName"),rcNumber:val("rcNumber"),tin:val("tin"),incorporationDate:val("incorporationDate"),natureBusiness:val("natureBusiness"),registeredAddress:val("registeredAddress"),operatingAddress:val("operatingAddress"),email:val("corpEmail"),phone:val("corpPhone"),website:val("website")},
+    directors:directors.map(function(d){return {n:d.n,fullName:d.fullName,bvn:d.bvn,nin:d.nin,phone:d.phone,email:d.email,address:d.address};}),
+    signatories:signatories.map(function(s){return {n:s.n,fullName:s.fullName,title:s.title,phone:s.phone,email:s.email,mandate:s.mandate};}),
+    financial:{bankName:val("bankName"),bankBranch:val("bankBranch"),accountNumber:val("accountNumber"),accountName:val("accountName"),dcsNumber:val("dcsNumber"),sourceOfFunds:sof,sourceDetails:val("sourceDetails"),annualTurnover:val("annualTurnover"),investmentOptions:inv,referralSource:val("referralSource"),relationshipManager:val("relationshipManager")},
+    declaration:{signatoryName:val("signatoryName"),date:val("sigDate")}
+  };
+}
+
+var pendingUploadRef=null; // set when a record is saved but its uploads still need to finish/retry
+var pendingFailedKeys=null; // which doc keys still need (re)uploading — avoids re-sending already-successful files
+
+function submitForm(){
+  var btn=document.getElementById("nextBtn"),lbl=document.querySelector("#nextBtn .btn-label");
+
+  // Retry-only path: record already saved, just re-run the uploads (no duplicate record).
+  if(pendingUploadRef){
+    btn.classList.add("loading"); btn.disabled=true; lbl.textContent="Uploading documents…"; hideErrBanner();
+    finishUploads(pendingUploadRef,btn,lbl,pendingFailedKeys); return;
+  }
+
+  btn.classList.add("loading"); btn.disabled=true; lbl.textContent="Submitting…";
+  var payload=collectPayload();
+  var ref="CRF-"+Date.now().toString(36).toUpperCase().slice(-6);
+  payload.ref=ref;
+  payload.source=leadSource;
+  fetch(ENDPOINT_URL,{method:"POST",headers:{"Content-Type":"application/json","X-Shared-Secret":SHARED_SECRET},body:JSON.stringify(payload)})
+  .then(function(res){ return res.json().then(function(body){ return {ok:res.ok,body:body}; }); })
+  .then(function(r){
+    if(!r.ok) throw new Error(r.body&&r.body.error?r.body.error:"Submission failed. Please try again.");
+    lbl.textContent="Uploading documents…";
+    finishUploads(ref,btn,lbl);
+  })
+  .catch(function(e){
+    btn.classList.remove("loading"); btn.disabled=false; lbl.textContent="Submit application";
+    showErrBanner(e.message||"An unexpected error occurred.");
+  });
+}
+
+// Upload the files for a saved record, then reveal the success card — or show a retryable error.
+function finishUploads(ref,btn,lbl,onlyKeys){
+  uploadDocuments(ref,onlyKeys).then(function(failures){
+    if(failures.length){
+      pendingUploadRef=ref;
+      pendingFailedKeys=failures;
+      btn.classList.remove("loading"); btn.disabled=false; lbl.textContent="Retry document upload";
+      showErrBanner("Your application was saved (REF "+ref+"), but "+failures.length+" file(s) didn't upload. Check your connection and tap “Retry document upload”. If a file is over 4 MB, go back and replace it with a smaller one.");
+      return;
+    }
+    pendingUploadRef=null;
+    pendingFailedKeys=null;
+    document.getElementById("mainCard").classList.add("hidden");
+    document.getElementById("successCard").classList.remove("hidden");
+    document.getElementById("comp-ref").textContent=ref;
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+}
+
+// Upload all files, verifying each and retrying once. Resolves to the list of failed keys.
+function uploadDocuments(ref,onlyKeys){
+  var keys=onlyKeys || Object.keys(fileStore).filter(function(k){return fileStore[k];});
+  var failures=[];
+  function readAsDataURL(file){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(e){res(e.target.result);}; r.onerror=function(){rej(new Error("read failed"));}; r.readAsDataURL(file); }); }
+  function uploadOne(key,attempt){
+    var file=fileStore[key];
+    return readAsDataURL(file).then(function(dataUrl){
+      return fetch("/.netlify/functions/upload-document",{method:"POST",headers:{"Content-Type":"application/json","X-Shared-Secret":SHARED_SECRET},body:JSON.stringify({ref:ref,key:key,name:file.name,data:dataUrl})})
+      .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); });
+    }).catch(function(err){ console.error("Doc upload failed:",key,"(attempt "+attempt+")",err); if(attempt<2) return uploadOne(key,attempt+1); failures.push(key); });
+  }
+  return keys.reduce(function(chain,key){ return chain.then(function(){ return uploadOne(key,1); }); }, Promise.resolve()).then(function(){ return failures; });
+}
+
+["companyName","rcNumber","tin","incorporationDate","natureBusiness","registeredAddress","operatingAddress","corpEmail","corpPhone"].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener("blur",function(){
+    var v=this.value.trim();
+    if(id==="corpEmail") markField(id,"err-"+id,isEmail(v));
+    else if(id==="corpPhone") markField(id,"err-corpPhone",isNigerianPhone(v));
+    else markField(id,"err-"+id,v.length>0);
+  });
+});
+
+document.getElementById("accountNumber").addEventListener("input",function(){ this.value=this.value.replace(/\D/g,"").slice(0,10); });
+
+renderDirectors();
+renderSignatories();
+updateNav();
+
+})();
+</script>
+</body>
+</html>
